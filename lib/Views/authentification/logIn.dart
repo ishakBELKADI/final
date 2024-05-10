@@ -31,7 +31,7 @@ class LogInPage extends State<LogIn> {
 
     // Once signed in, return the UserCredential
     await FirebaseAuth.instance.signInWithCredential(credential);
-    Navigator.of(context).pushNamed("homepage");
+    Navigator.of(context).pushReplacementNamed("homepage");
   }
 
   bool obscuretext = true;
@@ -44,8 +44,7 @@ class LogInPage extends State<LogIn> {
     return Scaffold(
       body: Container(
         padding: EdgeInsets.all(10),
-        color: Color.fromARGB(
-            255, 182, 175, 175), //Color.fromARGB(255, 182, 175, 175)
+        color: Colors.white, //Color.fromARGB(255, 182, 175, 175)
         child: ListView(
           children: [
             Container(
@@ -55,16 +54,16 @@ class LogInPage extends State<LogIn> {
               "Se connecter",
               textAlign: TextAlign.start,
               style: TextStyle(
-                  color: Colors.white,
+                  color: Color.fromARGB(255, 220, 0, 59),
                   fontSize: 40,
                   fontWeight: FontWeight.bold),
             ),
             Text(
-              "Se connecter pour continuer",
+              "Connectez-vous pour accéder à votre compte de don de sang.",
               textAlign: TextAlign.start,
               style: TextStyle(
-                  color: const Color.fromARGB(255, 224, 215, 215),
-                  fontSize: 20,
+                  color: Colors.grey,
+                  fontSize: 18,
                   fontWeight: FontWeight.bold),
             ),
             Container(
@@ -72,7 +71,7 @@ class LogInPage extends State<LogIn> {
               color: Colors.white,
             ),
             Container(
-              height: 60,
+              height: 50,
             ),
             Icon(
               Icons.bloodtype_rounded,
@@ -89,6 +88,7 @@ class LogInPage extends State<LogIn> {
                     child: Column(
                       children: [
                         TextFormField(
+                          onTap: () => {print("helllooooooo maya")},
                           controller: emailAddress,
                           validator: (value) {
                             if (value == "") {
@@ -105,23 +105,23 @@ class LogInPage extends State<LogIn> {
                               borderRadius: BorderRadius.circular(16),
                             ),
                             prefixIcon: Icon(
-                              Icons.mail,
-                              color: Colors.white,
+                              Icons.mail_outline,
+                              color: Color.fromARGB(255, 220, 0, 59),
                             ),
                             labelText: "Email",
                             labelStyle: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
-                              color: Colors.white,
+                              color: Color.fromARGB(255, 220, 0, 59),
                             ),
                             contentPadding:
                                 EdgeInsets.only(left: 30, top: 20, bottom: 20),
                             filled: true,
-                            fillColor: Color(0xFFDC003C),
+                            fillColor: Colors.grey[200],
                             enabledBorder: OutlineInputBorder(
                               borderSide:
                                   BorderSide(width: 2.0, color: Colors.white),
-                              borderRadius: BorderRadius.circular(16),
+                              borderRadius: BorderRadius.circular(20),
                             ),
                             focusedBorder: OutlineInputBorder(
                               borderSide:
@@ -144,7 +144,7 @@ class LogInPage extends State<LogIn> {
                             errorBorder: OutlineInputBorder(
                               borderSide:
                                   BorderSide(width: 2.0, color: Colors.white),
-                              borderRadius: BorderRadius.circular(16),
+                              borderRadius: BorderRadius.circular(20),
                             ),
                             suffixIcon: IconButton(
                                 onPressed: () {
@@ -153,7 +153,7 @@ class LogInPage extends State<LogIn> {
                                 },
                                 icon: Icon(
                                   Icons.remove_red_eye,
-                                  color: Colors.white,
+                                  color: Colors.grey,
                                 )),
                             counter: InkWell(
                               onTap: () async {
@@ -208,23 +208,23 @@ class LogInPage extends State<LogIn> {
                                 }
                               },
                               child: Textapp(
-                                  contenue: "Mot de passe oublié?",
+                                  contenue: "Mot de passe oublié ?  ",
                                   fontzsize: 16),
                             ),
                             prefixIcon: Icon(
                               Icons.key,
-                              color: Colors.white,
+                              color: Color.fromARGB(255, 220, 0, 59),
                             ),
                             labelText: "Mot de passe",
                             labelStyle: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
-                              color: Colors.white,
+                              color: Color.fromARGB(255, 220, 0, 59),
                             ),
                             contentPadding:
                                 EdgeInsets.only(left: 30, top: 20, bottom: 20),
                             filled: true,
-                            fillColor: Color(0xFFDC003C),
+                            fillColor: Colors.grey[200],
                             enabledBorder: OutlineInputBorder(
                               borderSide:
                                   BorderSide(width: 2.0, color: Colors.white),
@@ -237,7 +237,7 @@ class LogInPage extends State<LogIn> {
                           ),
                         ),
                         Container(
-                          height: 50,
+                          height: 30,
                         ),
                       ],
                     )),
@@ -252,7 +252,7 @@ class LogInPage extends State<LogIn> {
                     final credential = await FirebaseAuth.instance
                         .signInWithEmailAndPassword(
                             email: emailAddress.text, password: password.text);
-                    Navigator.of(context).pushNamed("homepage");
+                    Navigator.of(context).pushReplacementNamed("homepage");
                   } on FirebaseAuthException catch (e) {
                     AwesomeDialog(
                       context: context,
@@ -296,30 +296,37 @@ class LogInPage extends State<LogIn> {
               height: 20,
             ),
             MaterialButton(
-              color: Color.fromARGB(255, 173, 171, 171),
-              textColor: Colors.white,
+              color: Colors.white,
               height: 50,
               shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20)),
+                  borderRadius: BorderRadius.circular(20),
+                  side: BorderSide(color: Color(0xFFDC003C), width: 1)),
               onPressed: () async {
                 signInWithGoogle();
               },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
-                    "Se connecter avec google",
-                    style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
-                  ),
                   Image.asset(
                     "images/google.png",
-                    width: 40,
-                  )
+                    width: 25,
+                  ),
+                  SizedBox(
+                    width: 15,
+                  ),
+                  Text(
+                    "Continuer avec google",
+                    style: TextStyle(
+                      fontSize: 17,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.grey[600],
+                    ),
+                  ),
                 ],
               ),
             ),
             Container(
-              height: 40,
+              height: 20,
             ),
             InkWell(
               onTap: () {
@@ -329,15 +336,16 @@ class LogInPage extends State<LogIn> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    "Vous etes pas inscris? ",
+                    "Vous n'êtes pas inscrits ? ",
                     style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
                   ),
                   Text(
-                    "inscrivez vous ",
+                    " inscrivez vous. ",
                     style: TextStyle(
-                        fontSize: 17,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.red),
+                      fontSize: 17,
+                      fontWeight: FontWeight.bold,
+                      color: Color.fromARGB(255, 220, 0, 59),
+                    ),
                   ),
                 ],
               ),

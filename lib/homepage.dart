@@ -63,6 +63,7 @@ class _HomepageState extends State<Homepage> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData(primarySwatch: Colors.pink, primaryColor: Colors.pink),
       home: Scaffold(
         body: ListView(
           shrinkWrap: true,

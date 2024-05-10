@@ -50,24 +50,27 @@ class TextForm extends StatelessWidget {
       // ),
       onTap: function,
       decoration: InputDecoration(
-        errorStyle: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+        errorStyle: TextStyle(
+          fontWeight: FontWeight.bold,
+          color: Colors.red,
+        ),
         suffix: suffix,
         prefixIcon: i,
         hintText: label,
         hintStyle: TextStyle(
           fontSize: 16,
           fontWeight: FontWeight.bold,
-          // color: Colors.white,
+          color: Colors.black,
         ),
         contentPadding: EdgeInsets.only(left: 30, top: 20, bottom: 20),
         filled: true,
-        // fillColor: Color(0xFFd20000),
+        fillColor: Colors.grey[200],
         enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(width: 2.0, color: Colors.white),
+          borderSide: BorderSide(width: 2.0, color: Colors.grey),
           borderRadius: BorderRadius.circular(16),
         ),
         focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(width: 2.0, color: Colors.white),
+          borderSide: BorderSide(width: 2.0, color: Colors.grey),
         ),
       ),
     );

@@ -51,26 +51,32 @@ class _annonce_filtreState extends State<annonce_filtre> {
           style: TextStyle(color: Colors.white),
         ),
       ),
-      body: ListView.builder(
-          scrollDirection: Axis.vertical,
-          shrinkWrap: true,
-          itemCount: annoncesFiltrees.length,
-          itemBuilder: (context, i) {
-            return Card_cust(
-              name:
-                  "${annoncesFiltrees[i].utilisateur.nom} ${annoncesFiltrees[i].utilisateur.prenom}",
-              blood: annoncesFiltrees[i].groupSanguin,
-              day: annoncesFiltrees[i].dateDeDonMax?.day,
-              month: annoncesFiltrees[i].dateDeDonMax?.month,
-              year: annoncesFiltrees[i].dateDeDonMax?.year,
-              day_p: annoncesFiltrees[i].dateDePublication?.day,
-              month_p: annoncesFiltrees[i].dateDePublication?.month,
-              year_p: annoncesFiltrees[i].dateDePublication?.year,
-              adress: annoncesFiltrees[i].place,
-              numtel: annoncesFiltrees[i].numeroTelephone,
-              description: annoncesFiltrees[i].description,
-            );
-          }),
+      body: annoncesFiltrees.isEmpty
+          ? Center(
+              child: Text(
+              'Aucune annonce trouvée',
+              style: TextStyle(fontSize: 30, color: Colors.grey[600]),
+            ))
+          : ListView.builder(
+              scrollDirection: Axis.vertical,
+              shrinkWrap: true,
+              itemCount: annoncesFiltrees.length,
+              itemBuilder: (context, i) {
+                return Card_cust(
+                  name:
+                      "${annoncesFiltrees[i].utilisateur.nom} ${annoncesFiltrees[i].utilisateur.prenom}",
+                  blood: annoncesFiltrees[i].groupSanguin,
+                  day: annoncesFiltrees[i].dateDeDonMax?.day,
+                  month: annoncesFiltrees[i].dateDeDonMax?.month,
+                  year: annoncesFiltrees[i].dateDeDonMax?.year,
+                  day_p: annoncesFiltrees[i].dateDePublication?.day,
+                  month_p: annoncesFiltrees[i].dateDePublication?.month,
+                  year_p: annoncesFiltrees[i].dateDePublication?.year,
+                  adress: annoncesFiltrees[i].place,
+                  numtel: annoncesFiltrees[i].numeroTelephone,
+                  description: annoncesFiltrees[i].description,
+                );
+              }),
     );
   }
 }

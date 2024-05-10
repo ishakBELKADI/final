@@ -24,11 +24,11 @@ class Card_cust extends StatelessWidget {
 
   void appelerNumero(int numero) async {
     Uri url = Uri.parse('tel:0$numero');
-    if (await canLaunchUrl(url)) {
-      await launchUrl(url);
-    } else {
-      throw 'Impossible de lancer $url';
-    }
+    // if (await canLaunchUrl(url)) {
+    await launchUrl(url);
+    //} else {
+    //throw 'Impossible de lancer $url';
+    //}
   }
 
   @override

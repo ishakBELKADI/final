@@ -66,7 +66,7 @@ class ProfilPage extends State<Profil> {
       ),
       body: Container(
         padding: EdgeInsets.symmetric(horizontal: 10, vertical: 15),
-        child: Column(
+        child: ListView(
           children: [
             Card(
               child: Row(
@@ -213,28 +213,26 @@ class ProfilPage extends State<Profil> {
                 ),
               ),
             ),
-            SizedBox(
-              height: 27,
-            ),
-            Expanded(
-              child: Container(
-                child: MaterialButton(
-                  onPressed: () async {
-                    await FirebaseAuth.instance.signOut();
-                    Navigator.of(context).pushNamed("main");
-                  },
-                  child: Text(
-                    "Se Deconnecter",
-                    style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
-                  ),
-                  color: Color(0xFFDC003C),
-                  textColor: Colors.white,
-                  height: 50,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20)),
+            // Expanded(
+            // child:
+            Container(
+              child: MaterialButton(
+                onPressed: () async {
+                  await FirebaseAuth.instance.signOut();
+                  Navigator.of(context).pushNamed("main");
+                },
+                child: Text(
+                  "Se Deconnecter",
+                  style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
                 ),
+                color: Color(0xFFDC003C),
+                textColor: Colors.white,
+                height: 50,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20)),
               ),
             ),
+            // ),
           ],
         ),
       ),
