@@ -4,11 +4,15 @@ import 'package:url_launcher/url_launcher.dart';
 class Card_cust extends StatelessWidget {
   final String? name, blood, adress, description;
   int? numtel;
+  bool? choice;
+  void Function()? onPressed;
 
   final int? year, month, day; //date de don
   final int? year_p, month_p, day_p; //date de publication
   Card_cust({
     //super.key,
+    this.choice,
+    this.onPressed,
     required this.name,
     required this.blood,
     required this.adress,

@@ -146,7 +146,7 @@ class MyAppState extends State<MyApp> {
         "login": (context) => LogIn(),
         "signup": (context) => SignUp(),
         "informations perso": (context) => Infoperso(),
-        "annonces perso": (context) => GestionAnnonce(),
+        // "annonces perso": (context) => GestionAnnonce(),
         "profil": (context) => Profil(),
         "questionnaire": (context) => QuestionnaireDon(),
         "main": (context) => const MyApp(),

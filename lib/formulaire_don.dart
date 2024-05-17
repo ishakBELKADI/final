@@ -1,6 +1,16 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:pfe/djangoTest.dart';
+import 'package:pfe/models/donneur.dart';
+import 'package:pfe/models/effectuedon.dart';
+import 'package:pfe/models/utilisateur.dart';
+
+String? donfait;
 
 class DonHistoryForm extends StatefulWidget {
+  final Utilisateur? utilisateur;
+
+  const DonHistoryForm({super.key, this.utilisateur});
   @override
   _DonHistoryFormState createState() => _DonHistoryFormState();
 }
@@ -134,13 +144,60 @@ class _DonHistoryFormState extends State<DonHistoryForm> {
           children: [
             TextButton(
               onPressed: () {
+                donfait = null;
                 Navigator.of(context).pop();
               },
               child: Text('Fermer'),
             ),
             TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
+              onPressed: () async {
+                print(widget.utilisateur!.id);
+                Donneur donneur =
+                    Donneur(utilisateur: widget.utilisateur!, statu: 'Apte');
+                EffectueDon don = EffectueDon(
+                  donneur: donneur,
+                  dateDeDon: _selectedDate,
+                  typeDeDon: _selectedDonationType,
+                );
+                var response =
+                    await addDataDjango(don.toJson(), urlSite, 'creeDon/');
+                if (response["message"] ==
+                    'Un Don est crée et a été effectué') {
+                  // AwesomeDialog(
+                  //   context: context,
+                  //   dialogType: DialogType.success,
+                  //   animType: AnimType.rightSlide,
+                  //   title: 'Don effectué',
+                  //   desc: 'Don effectué avec succeés !',
+                  //   btnCancelOnPress: () {
+                  //     Navigator.of(context).pop();
+                  //   },
+                  //   descTextStyle: TextStyle(fontWeight: FontWeight.bold),
+                  //   btnOkOnPress: () {
+                  //     Navigator.of(context).pop();
+                  //   },
+                  // )..show();
+                  donfait = 'fait';
+                  Navigator.of(context).pop();
+                } else {
+                  // AwesomeDialog(
+                  //   context: context,
+                  //   dialogType: DialogType.error,
+                  //   animType: AnimType.rightSlide,
+                  //   title: 'Don Non effectué',
+                  //   desc:
+                  //       'vous pouvez pas effectuer plusieurs don dans la meme date',
+                  //   btnCancelOnPress: () {
+                  //     Navigator.of(context).pop();
+                  //   },
+                  //   descTextStyle: TextStyle(fontWeight: FontWeight.bold),
+                  //   btnOkOnPress: () {
+                  //     Navigator.of(context).pop();
+                  //   },
+                  // )..show();
+                  donfait = 'nonfait';
+                  Navigator.of(context).pop();
+                }
               },
               child: Text(
                 'Ajouter',

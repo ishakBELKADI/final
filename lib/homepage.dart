@@ -14,7 +14,8 @@ import 'package:flutter/material.dart';
 //import 'package:url_launcher/url_launcher.dart';
 
 class Homepage extends StatefulWidget {
-  Homepage({super.key});
+  final Utilisateur? utilisateur;
+  Homepage({super.key, required this.utilisateur});
 
   @override
   State<Homepage> createState() => _HomepageState();
@@ -25,17 +26,17 @@ class _HomepageState extends State<Homepage> {
   Utilisateur? utilisateur;
   String? don;
   List<Annonce> annonces = [];
-  currentUser() async {
-    user = FirebaseAuth.instance.currentUser;
-    print("==============email================");
-    String email = user.email;
-    print(email);
-    var userData = await getOneDataDjango(urlSite, email, 'getUser/');
-    utilisateur = Utilisateur.fromJson(userData);
-    print(utilisateur!.id);
-    print(utilisateur!.nom);
-    setState(() {});
-  }
+  // currentUser() async {
+  //   user = FirebaseAuth.instance.currentUser;
+  //   print("==============email================");
+  //   String email = user.email;
+  //   print(email);
+  //   var userData = await getOneDataDjango(urlSite, email, 'getUser/');
+  //   utilisateur = Utilisateur.fromJson(userData);
+  //   print(utilisateur!.id);
+  //   print(utilisateur!.nom);
+  //   setState(() {});
+  // }
 
   Listannonce() async {
     var Data = await getDataDjango(urlSite, 'getAllAnnounces/');
@@ -56,7 +57,7 @@ class _HomepageState extends State<Homepage> {
   @override
   void initState() {
     super.initState();
-    currentUser();
+    // currentUser();
     Listannonce();
   }
 

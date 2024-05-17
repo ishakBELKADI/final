@@ -7,6 +7,35 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:pfe/Views/authentification/SignUp.dart';
 import 'package:pfe/statistiques/questionnaireDon.dart';
 
+sendNotifcation(String title, String bodycontent, String? token) async {
+  var headersList = {
+    'Accept': '*/*',
+    'User-Agent': 'Thunder Client (https://www.thunderclient.com)',
+    'Content-Type': 'application/json',
+    'Authorization':
+        'key=AAAA8yBZXCc:APA91bHR3M3n1dkg8lYh7ULltqcBIioVSURC2VkF_ejIEzwRTexWrdrD9KgYQrsU_xxjrDUBas0O13HjZ8NO323Qx1xXY6ML99Iq_1WOWu7rne_lHGJw8I9G-kFOmKHi8zXxjNAOdJkF'
+  };
+  var url = Uri.parse('https://fcm.googleapis.com/fcm/send');
+
+  var body = {
+    "to": token,
+    "notification": {"title": title, "body": bodycontent}
+  };
+
+  var req = http.Request('POST', url);
+  req.headers.addAll(headersList);
+  req.body = json.encode(body);
+
+  var res = await req.send();
+  final resBody = await res.stream.bytesToString();
+
+  if (res.statusCode >= 200 && res.statusCode < 300) {
+    print(resBody);
+  } else {
+    print(res.reasonPhrase);
+  }
+}
+
 class Notificationtest extends StatefulWidget {
   @override
   State<Notificationtest> createState() => NotificationPage();

@@ -4,7 +4,7 @@ class EffectueDon {
   Donneur donneur;
   DateTime dateDeDon;
   String typeDeDon;
-
+  String? quantite;
   EffectueDon({
     required this.donneur,
     required this.dateDeDon,
@@ -24,6 +24,7 @@ class EffectueDon {
       'donneur': donneur.toJson(),
       'date_de_don': dateDeDon.toIso8601String(),
       'type_de_don': typeDeDon,
+      'quantite': quantite
     };
   }
 }

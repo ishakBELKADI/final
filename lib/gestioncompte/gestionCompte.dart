@@ -3,35 +3,40 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:pfe/Views/Trouver_donneur/publierAnnonce.dart';
 import 'package:pfe/djangoTest.dart';
+import 'package:pfe/gestioncompte/gestionannonces.dart';
 import 'package:pfe/gestioncompte/infopersonnels.dart';
 import 'package:pfe/gestioncompte/signalerProbleme.dart';
 import 'package:pfe/models/utilisateur.dart';
 // import 'package:pfe/Views/gestioncompte/signalerProbleme.dart';
 
 class Profil extends StatefulWidget {
+  final Utilisateur? utilisateur;
+
+  const Profil({super.key, this.utilisateur});
+
   @override
   State<Profil> createState() => ProfilPage();
 }
 
 class ProfilPage extends State<Profil> {
-  var user;
-  Utilisateur? utilisateur;
-  currentUser() async {
-    user = FirebaseAuth.instance.currentUser;
-    print("==============email================");
-    String email = user.email;
-    print(email);
-    var userData = await getOneDataDjango(urlSite, email, 'getUser/');
-    utilisateur = Utilisateur.fromJson(userData);
-    print(utilisateur!.id);
-    print(utilisateur!.nom);
-    setState(() {});
-  }
+  // var user;
+  // Utilisateur? utilisateur;
+  // currentUser() async {
+  //   user = FirebaseAuth.instance.currentUser;
+  //   print("==============email================");
+  //   String email = user.email;
+  //   print(email);
+  //   var userData = await getOneDataDjango(urlSite, email, 'getUser/');
+  //   utilisateur = Utilisateur.fromJson(userData);
+  //   print(utilisateur!.id);
+  //   print(utilisateur!.nom);
+  //   setState(() {});
+  // }
 
   @override
   void initState() {
     super.initState();
-    currentUser();
+    // currentUser();
   }
 
   bool switchvalue = false;
@@ -94,8 +99,8 @@ class ProfilPage extends State<Profil> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                utilisateur != null
-                                    ? utilisateur!.groupSanguin
+                                widget.utilisateur != null
+                                    ? widget.utilisateur!.groupSanguin
                                     : "groupe sanguin",
                                 style: TextStyle(fontSize: 16),
                               ),
@@ -128,8 +133,8 @@ class ProfilPage extends State<Profil> {
                         contentPadding:
                             EdgeInsets.only(left: 5, top: 10, bottom: 10),
                         title: Text(
-                          utilisateur != null
-                              ? "${utilisateur!.nom}  ${utilisateur!.prenom} "
+                          widget.utilisateur != null
+                              ? "${widget.utilisateur!.nom}  ${widget.utilisateur!.prenom} "
                               : "Nom et Prenom",
                           style: TextStyle(
                               fontFamily: "Cabin",
@@ -150,7 +155,7 @@ class ProfilPage extends State<Profil> {
                       onTap: () {
                         Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) =>
-                              Infoperso(utilisateur: utilisateur),
+                              Infoperso(utilisateur: widget.utilisateur),
                         ));
                       },
                       title: Text(
@@ -164,7 +169,10 @@ class ProfilPage extends State<Profil> {
                     ),
                     ListTile(
                       onTap: () {
-                        Navigator.of(context).pushNamed("annonces perso");
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) =>
+                              GestionAnnonce(utilisateur: widget.utilisateur!),
+                        ));
                       },
                       title: Text(
                         "gerer vos annonces",
@@ -198,7 +206,7 @@ class ProfilPage extends State<Profil> {
                     ListTile(
                       onTap: () {
                         globalKey.currentState!.showBottomSheet((context) =>
-                            Signalerprbl(utilisateur: utilisateur!));
+                            Signalerprbl(utilisateur: widget.utilisateur!));
                       },
                       title: Text(
                         "Signaler un probleme",

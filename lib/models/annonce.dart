@@ -5,6 +5,7 @@ class Annonce {
   Utilisateur utilisateur;
   String description;
   String groupSanguin;
+  String? type_de_don;
   String? place;
   DateTime? dateDePublication;
   DateTime? dateDeDonMax;
@@ -15,6 +16,7 @@ class Annonce {
     required this.utilisateur,
     required this.description,
     required this.groupSanguin,
+    this.type_de_don,
     this.dateDePublication,
     this.place,
     this.dateDeDonMax,
@@ -28,6 +30,7 @@ class Annonce {
       utilisateur: Utilisateur.fromJson(json['utilisateur']),
       description: json['description'],
       id: json['id'],
+      type_de_don: json['type_de_don'],
       groupSanguin: json['groupSanguin'],
       place: json['place'],
       dateDeDonMax: json['date_de_Don_max'] != null
@@ -47,6 +50,7 @@ class Annonce {
       'groupSanguin': groupSanguin,
       'place': place,
       'id': id,
+      'type_de_don': type_de_don,
       'date_de_Don_max': dateDeDonMax?.toIso8601String(),
       'numerotelephone': numeroTelephone,
       'date_de_modification': dateDeModification?.toIso8601String(),
@@ -72,6 +76,7 @@ List<Annonce> convertirListeAnnonces(List<dynamic> jsonAnnonces) {
           ? DateTime.parse(jsonAnnonce['date_de_Don_max'])
           : null,
       numeroTelephone: jsonAnnonce['numerotelephone'],
+      type_de_don: jsonAnnonce['type_de_don'],
       dateDeModification: jsonAnnonce['date_de_modification'] != null
           ? DateTime.parse(jsonAnnonce['date_de_modification'])
           : null,

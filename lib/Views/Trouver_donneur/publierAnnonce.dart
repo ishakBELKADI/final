@@ -8,8 +8,9 @@ import 'package:pfe/models/annonce.dart';
 import 'package:pfe/models/utilisateur.dart';
 
 class PublierAnnonce extends StatefulWidget {
+  final Annonce? annonce;
   final Utilisateur utilisateur;
-  const PublierAnnonce({super.key, required this.utilisateur});
+  const PublierAnnonce({super.key, required this.utilisateur, this.annonce});
 
   @override
   State<PublierAnnonce> createState() => PublierAnnoncePage();
@@ -37,6 +38,20 @@ class PublierAnnoncePage extends State<PublierAnnonce> {
 
   String? typedon;
   String? numAffich;
+
+  @override
+  void initState() {
+    if (widget.annonce != null) {
+      placeController.text = widget.annonce!.place!;
+      descriptionController.text = widget.annonce!.description;
+      numtelController.text = widget.annonce!.numeroTelephone!.toString();
+      groupsanguinController.text = widget.annonce!.groupSanguin;
+      selectedDate = widget.annonce!.dateDeDonMax;
+      typedon = widget.annonce!.type_de_don;
+    }
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -173,8 +188,8 @@ class PublierAnnoncePage extends State<PublierAnnonce> {
                             MaterialButton(
                               onPressed: () {
                                 setState(() {});
-                                print(v);
                                 groupsanguinController.text = v!;
+                                print(groupsanguinController.text);
 
                                 Navigator.of(context).pop();
                               },
@@ -345,10 +360,16 @@ class PublierAnnoncePage extends State<PublierAnnonce> {
                         dateDeDonMax: selectedDate,
                         place: placeController.text);
                   }
-
-                  print(annonce.toJson());
-                  addDataDjango(annonce.toJson(), urlSite,
-                      'createAnounce/${widget.utilisateur.id}');
+                  if (widget.annonce == null) {
+                    print(annonce.toJson());
+                    addDataDjango(annonce.toJson(), urlSite,
+                        'createAnounce/${widget.utilisateur.id}');
+                  } else {
+                    print(annonce.toJson());
+                    updateDataDjango(annonce.toJson(), urlSite,
+                        'updateAnnounce/', widget.annonce!.id.toString());
+                    Navigator.of(context).pop();
+                  }
                 },
                 child: Text(
                   "Publier",

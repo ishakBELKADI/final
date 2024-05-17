@@ -71,6 +71,7 @@ getDataDjango(url, suffix) async {
       print("data ramenéé");
       var jsonresponse = response.body;
       var data = jsonDecode(jsonresponse);
+      print(data);
       return data;
     } else {
       throw Exception('Failed to load data');
@@ -78,6 +79,21 @@ getDataDjango(url, suffix) async {
   } catch (e) {
     print("==========error============");
     print(e);
+  }
+}
+
+deleteDataDjango(url, suffix) async {
+  print(url + suffix);
+
+  var response = await http.delete(Uri.parse(url + suffix));
+  if (response.statusCode == 200) {
+    print("DEEEEELETED");
+    print(jsonDecode(response.body));
+    return jsonDecode(response.body);
+  } else {
+    print(jsonDecode(response.body));
+    print(response.statusCode);
+    return jsonDecode(response.body);
   }
 }
 
